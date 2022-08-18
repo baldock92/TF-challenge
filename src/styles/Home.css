@@ -1,0 +1,26 @@
+h1 {
+    padding-left: 3%;
+  background-color: orange;
+}
+
+.button__link {
+position: absolute;
+left: 50%;
+margin-top: 5%;
+  align-items: center;
+  cursor: pointer;
+  width: 5rem;
+  height: 2.5rem;
+  color: orange;
+  background-color: black;
+  font-size: 1rem;
+  padding: 3px;
+  border: 1px solid orange;
+  transition: 0.4s;
+}
+
+.button__link:hover {
+  background-color: orange;
+  color: black;
+  transition: 0.4s;
+}

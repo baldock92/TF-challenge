@@ -17,11 +17,9 @@ export default function Orders() {
   const [filteredBy, setFilteredBy] = useState<string>("");
   const [value, setValue] = useState<number>(0);
 
-    useEffect(() => {
-      document.title = `(${orders.length}) - My orders`
-    }, [orders])
-
-
+  useEffect(() => {
+    document.title = `(${orders.length}) - My orders`;
+  }, [orders]);
 
   const handleFilter = (orderStatus: string) => {
     setFilterApplied(true);
@@ -39,7 +37,7 @@ export default function Orders() {
     setValue(0);
   };
 
-  const onChange = (e:any) => {
+  const onChange = (e: any) => {
     setValue(e.target.value);
   };
 
@@ -96,12 +94,22 @@ export default function Orders() {
               <ul>{order.productName}</ul>
               <div className="order__card--bottom">
                 <div>
-                  <li>Order Date</li>
+                  <li className="order__subtitle">Order Date:</li>
                   <li>{new Date(order.dateOrdered).toString().slice(4, 16)}</li>
                 </div>
                 <div>
-                  <li>Order Status</li>
-                  <li>{order.orderStatus}</li>
+                  <li className="order__subtitle">Order Status:</li>
+                  <li
+                    style={
+                      order.orderStatus === "complete"
+                        ? { color: "green", fontWeight: "bold" }
+                        : { color: "blue", fontWeight: "bold" }
+                    }
+                  >
+                    {order.orderStatus === "inProgress"
+                      ? "In Progress"
+                      : order.orderStatus}
+                  </li>
                 </div>
               </div>
             </div>

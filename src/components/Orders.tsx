@@ -13,14 +13,20 @@ export default function Orders() {
     }[]
   >(allOrders);
 
+//filterApplied refers to if the orders have been filtered by anything. If a filter has been applied, a p tag and remove filter button appear
   const [filterApplied, setFilterApplied] = useState<boolean>(false);
+  //filteredBy is a reuseable bit of state, so the orders can be filtered by accepted/inprogress/complete
   const [filteredBy, setFilteredBy] = useState<string>("");
+  //value refers to the radio filter buttons, so only 1 can be applied at any time
   const [value, setValue] = useState<number>(0);
 
+
+  //Changes the document title to display the number of orders currently displaying
   useEffect(() => {
     document.title = `(${orders.length}) - My orders`;
   }, [orders]);
 
+  //filters orders by order progress
   const handleFilter = (orderStatus: string) => {
     setFilterApplied(true);
     setFilteredBy(orderStatus);
@@ -31,6 +37,7 @@ export default function Orders() {
     );
   };
 
+  //removes all filter options, and displays all orders
   const handleRemoveFilter = () => {
     setFilterApplied(false);
     setOrders(allOrders);
@@ -69,8 +76,10 @@ export default function Orders() {
           </Radio>
         </Radio.Group>
       </div>
+      {/*Checks if a filter button has been selected. If so, it renders a p tag(showing what is being filtered by) and a button to remove the filter*/ }
       {filterApplied ? (
         <div className="order__filter">
+          {/*If filtering by inProgress, it renders the more user friendly "In Progress" instead of "inProgress"*/ }
           {filteredBy === "inProgress" ? (
             <>
               <p>Filtered by: In Progress</p>
@@ -95,10 +104,12 @@ export default function Orders() {
               <div className="order__card--bottom">
                 <div>
                   <li className="order__subtitle">Order Date:</li>
+                  {/*Below changes the received dateOrdered to a more user friendly string*/}
                   <li>{new Date(order.dateOrdered).toString().slice(4, 16)}</li>
                 </div>
                 <div>
                   <li className="order__subtitle">Order Status:</li>
+                  {/*Below adds green text to complete orders, and blue for any other orders*/}
                   <li
                     style={
                       order.orderStatus === "complete"
@@ -106,6 +117,7 @@ export default function Orders() {
                         : { color: "blue", fontWeight: "bold" }
                     }
                   >
+                    {/*Below changes the received dateOrdered to a more user friendly string*/}
                     {order.orderStatus === "inProgress"
                       ? "In Progress"
                       : order.orderStatus}
